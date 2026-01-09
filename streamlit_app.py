@@ -70,4 +70,4 @@ if st.button("Submit Answer"):
 
 if st.button("Next Question"):
     st.session_state.index = (st.session_state.index + 1) % len(questions)
-    st.experimental_rerun()
+    st.rerun()
