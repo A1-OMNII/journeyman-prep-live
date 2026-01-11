@@ -1,5 +1,15 @@
 import streamlit as st
+# -----------------------
+# Session State Setup
+# -----------------------
+if "q_index" not in st.session_state:
+    st.session_state.q_index = 0
 
+if "score" not in st.session_state:
+    st.session_state.score = 0
+
+if "answered" not in st.session_state:
+    st.session_state.answered = False
 st.set_page_config(page_title="Journeyman Prep App", layout="centered")
 
 st.title("Journeyman License Practice App")
