@@ -1,11 +1,27 @@
 import streamlit as st
 import time
+# Initialize timer state
+if "start_time" not in st.session_state:
+    st.session_state.start_time = time.time()
 
+if "time_up" not in st.session_state:
+    st.session_state.time_up = False
 # -----------------------------
 # Session State + Timer Setup
 # -----------------------------
 QUESTION_TIME_LIMIT = 30  # seconds
+# Timer display
+elapsed = int(time.time() - st.session_state.start_time)
+remaining = max(0, QUESTION_TIME_LIMIT - elapsed)
 
+st.markdown(f"### ⏳ Time Remaining: **{remaining} seconds**")
+
+if remaining == 0 and not st.session_state.time_up:
+    st.session_state.time_up = True
+    st.session_state.q_index += 1
+    st.session_state.start_time = time.time()
+    st.session_state.time_up = False
+    st.rerun()
 if "q_index" not in st.session_state:
     st.session_state.q_index = 0
 
@@ -14,7 +30,7 @@ if "score" not in st.session_state:
 
 if "answered" not in st.session_state:
     st.session_state.answered = False
-
+st.session_state.start_time = time.time()
 if "start_time" not in st.session_state:
     st.session_state.start_time = time.time()
 
