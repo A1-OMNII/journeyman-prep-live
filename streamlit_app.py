@@ -81,3 +81,8 @@ if st.button("Submit Answer"):
 if st.button("Next Question"):
     st.session_state.index = (st.session_state.index + 1) % len(questions)
     st.rerun()
+st.markdown("---")
+st.subheader("📊 Score & Progress")
+
+st.write(f"Score: {st.session_state.score}")
+st.write(f"Question {st.session_state.q_index + 1} of {len(questions)}")
