@@ -1,5 +1,35 @@
 import streamlit as st
+import time
 
+# -----------------------------
+# Session State + Timer Setup
+# -----------------------------
+QUESTION_TIME_LIMIT = 30  # seconds
+
+if "q_index" not in st.session_state:
+    st.session_state.q_index = 0
+
+if "score" not in st.session_state:
+    st.session_state.score = 0
+
+if "answered" not in st.session_state:
+    st.session_state.answered = False
+
+if "start_time" not in st.session_state:
+    st.session_state.start_time = time.time()
+
+if "time_up" not in st.session_state:
+    st.session_state.time_up = False
+# -----------------------------
+# Timer configuration
+# -----------------------------
+QUESTION_TIME_LIMIT = 30  # seconds
+
+if "start_time" not in st.session_state:
+    st.session_state.start_time = time.time()
+
+if "time_up" not in st.session_state:
+    st.session_state.time_up = False
 st.set_page_config(page_title="Journeyman Prep App", layout="centered")
 
 st.title("Journeyman License Practice App")
