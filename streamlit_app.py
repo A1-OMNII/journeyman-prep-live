@@ -1,16 +1,18 @@
 import streamlit as st
 import time
 
-# -----------------------------
-# Page Configuration (MUST be first)
-# -----------------------------
+# -------------------------------------------------
+# Page Configuration (MUST be first Streamlit command)
+# -------------------------------------------------
 st.set_page_config(
     page_title="A1 Omni Journeyman Prep",
     page_icon="⚡",
     layout="centered"
 )
 
-
+# -------------------------------------------------
+# Session State Initialization (ONE TIME ONLY)
+# -------------------------------------------------
 if "q_index" not in st.session_state:
     st.session_state.q_index = 0
 
@@ -25,97 +27,104 @@ if "start_time" not in st.session_state:
 
 if "time_up" not in st.session_state:
     st.session_state.time_up = False
-# Timer configuration
-# -----------------------------
-QUESTION_TIME_LIMIT = 30  QUESTION_TIME_LIMIT = 30  # seconds
+
+# -------------------------------------------------
+# App Header
+# -------------------------------------------------
+st.title("⚡ A1 Omni Journeyman License Practice")
+st.subheader("Electrical Exam Prep")
+
+# -------------------------------------------------
+# Question Bank (sample – you can expand this)
+# -------------------------------------------------
+questions = [
+    {
+        "question": "A continuous load must be calculated at what percentage?",
+        "options": [
+            "100%",
+            "110%",
+            "125%",
+            "150%"
+        ],
+        "answer": "125%"
+    },
+    {
+        "question": "What NEC article covers grounding and bonding?",
+        "options": [
+            "Article 100",
+            "Article 110",
+            "Article 250",
+            "Article 300"
+        ],
+        "answer": "Article 250"
+    }
+]
+
+# -------------------------------------------------
+# End of Exam Check
+# -------------------------------------------------
+if st.session_state.q_index >= len(questions):
+    st.success("✅ Exam Complete!")
+    st.write(f"Final Score: {st.session_state.score} / {len(questions)}")
+    st.stop()
+
+# -------------------------------------------------
+# Timer Configuration
+# -------------------------------------------------
+QUESTION_TIME_LIMIT = 30  # seconds
 
 elapsed = int(time.time() - st.session_state.start_time)
 remaining = max(0, QUESTION_TIME_LIMIT - elapsed)
 
 st.markdown(f"### ⏳ Time Remaining: **{remaining}s**")
 
-if remaining == 0 and not st.session_state.answered:
+# -------------------------------------------------
+# Time-Up Detection (NO rerun here)
+# -------------------------------------------------
+if remaining == 0 and not st.session_state.time_up:
+    st.session_state.time_up = True
+
+# -------------------------------------------------
+# Display Current Question
+# -------------------------------------------------
+current_q = questions[st.session_state.q_index]
+
+st.markdown(f"### Question {st.session_state.q_index + 1}")
+st.write(current_q["question"])
+
+choice = st.radio(
+    "Select your answer:",
+    current_q["options"],
+    key=f"q_{st.session_state.q_index}"
+)
+
+# -------------------------------------------------
+# Submit Answer Button
+# -------------------------------------------------
+if st.button("Submit Answer") and not st.session_state.answered:
     st.session_state.answered = True
 
-    if st.session_state.q_index < len(questions) - 1:
-        st.session_state.q_index += 1
+    if choice == current_q["answer"]:
+        st.session_state.score += 1
+        st.success("✅ Correct!")
     else:
-        st.session_state.q_index = len(questions)
+        st.error(f"❌ Incorrect. Correct answer: {current_q['answer']}")
 
+# -------------------------------------------------
+# Auto-Advance Logic (Answer OR Time-Up)
+# -------------------------------------------------
+if st.session_state.answered or st.session_state.time_up:
+    time.sleep(1)
+
+    st.session_state.q_index += 1
     st.session_state.start_time = time.time()
-    st.rerun() seconds
-
-
-if "time_up" not in st.session_state:
+    st.session_state.answered = False
     st.session_state.time_up = False
-st.set_page_config(page_title="Journeyman Prep App", layout="centered")
 
-st.title("Journeyman License Practice App")
-st.subheader("Electrical Exam Prep")
-
-# Question bank (NEC-style, original wording)
-questions = [
-    {
-        "topic": "Electrical Theory / Branch Circuits",
-        "question": "A continuous load is supplied by a branch circuit. What is the minimum required ampacity of the branch-circuit conductors?",
-        "options": [
-            "100% of the continuous load",
-            "110% of the continuous load",
-            "125% of the continuous load",
-            "150% of the continuous load"
-        ],
-        "answer": "125% of the continuous load",
-        "explanation": "Branch-circuit conductors supplying a continuous load must be sized at not less than 125% of the continuous load.",
-        "reference": "NEC Article 210"
-    },
-    {
-        "topic": "Calculations",
-        "question": "What is the minimum ampacity required for a conductor supplying a 16-amp continuous load?",
-        "options": [
-            "16 amps",
-            "18 amps",
-            "20 amps",
-            "22 amps"
-        ],
-        "answer": "20 amps",
-        "explanation": "Continuous loads must be multiplied by 125%. 16A × 1.25 = 20A.",
-        "reference": "NEC 210 / Load Calculations"
-    },
-    {
-        "topic": "Grounding & Bonding",
-        "question": "What is the primary purpose of equipment grounding conductors?",
-        "options": [
-            "Carry normal load current",
-            "Reduce voltage drop",
-            "Provide a low-impedance fault path",
-            "Bond grounded conductors"
-        ],
-        "answer": "Provide a low-impedance fault path",
-        "explanation": "Equipment grounding conductors provide a low-impedance path for fault current to facilitate overcurrent device operation.",
-        "reference": "NEC Article 250"
-    }
-]
-
-# Session state
-if "index" not in st.session_state:
-    st.session_state.index = 0
-
-q = questions[st.session_state.index]
-
-st.markdown(f"### Topic: {q['topic']}")
-st.markdown(f"**Question:** {q['question']}")
-
-choice = st.radio("Choose an answer:", q["options"])
-
-if st.button("Submit Answer"):
-    if choice == q["answer"]:
-        st.success("✅ Correct")
-    else:
-        st.error("❌ Incorrect")
-
-    st.info(f"**Explanation:** {q['explanation']}")
-    st.caption(f"📘 Reference: {q['reference']}")
-
-if st.button("Next Question"):
-    st.session_state.index = (st.session_state.index + 1) % len(questions)
     st.rerun()
+
+# -------------------------------------------------
+# Footer
+# -------------------------------------------------
+st.markdown("---")
+st.write(f"Score: {st.session_state.score}")
