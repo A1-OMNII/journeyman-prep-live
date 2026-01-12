@@ -1,27 +1,18 @@
-import streamlit as st
+#import streamlit as st
 import time
-# Initialize timer state
-if "start_time" not in st.session_state:
-    st.session_state.start_time = time.time()
 
-if "time_up" not in st.session_state:
-    st.session_state.time_up = False
 # -----------------------------
-# Session State + Timer Setup
+# Page Configuration (MUST be first)
 # -----------------------------
-QUESTION_TIME_LIMIT = 30  # seconds
-# Timer display
-elapsed = int(time.time() - st.session_state.start_time)
-remaining = max(0, QUESTION_TIME_LIMIT - elapsed)
+st.set_page_config(
+    page_title="A1 Omni Journeyman Prep",
+    page_icon="⚡",
+    layout="centered"
+)
 
-st.markdown(f"### ⏳ Time Remaining: **{remaining} seconds**")
-
-if remaining == 0 and not st.session_state.time_up:
-    st.session_state.time_up = True
-    st.session_state.q_index += 1
-    st.session_state.start_time = time.time()
-    st.session_state.time_up = False
-    st.rerun()
+# -----------------------------
+# Session State Initialization
+# -----------------------------
 if "q_index" not in st.session_state:
     st.session_state.q_index = 0
 
@@ -30,19 +21,32 @@ if "score" not in st.session_state:
 
 if "answered" not in st.session_state:
     st.session_state.answered = False
-st.session_state.start_time = time.time()
+
 if "start_time" not in st.session_state:
     st.session_state.start_time = time.time()
 
 if "time_up" not in st.session_state:
-    st.session_state.time_up = False
-# -----------------------------
+    st.session_state.time_up = False -----------------------------
 # Timer configuration
 # -----------------------------
-QUESTION_TIME_LIMIT = 30  # seconds
+QUESTION_TIME_LIMIT = 30  QUESTION_TIME_LIMIT = 30  # seconds
 
-if "start_time" not in st.session_state:
+elapsed = int(time.time() - st.session_state.start_time)
+remaining = max(0, QUESTION_TIME_LIMIT - elapsed)
+
+st.markdown(f"### ⏳ Time Remaining: **{remaining}s**")
+
+if remaining == 0 and not st.session_state.answered:
+    st.session_state.answered = True
+
+    if st.session_state.q_index < len(questions) - 1:
+        st.session_state.q_index += 1
+    else:
+        st.session_state.q_index = len(questions)
+
     st.session_state.start_time = time.time()
+    st.rerun() seconds
+
 
 if "time_up" not in st.session_state:
     st.session_state.time_up = False
