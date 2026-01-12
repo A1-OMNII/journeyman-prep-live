@@ -1,4 +1,4 @@
-#import streamlit as st
+import streamlit as st
 import time
 
 # -----------------------------
@@ -10,9 +10,7 @@ st.set_page_config(
     layout="centered"
 )
 
-# -----------------------------
-# Session State Initialization
-# -----------------------------
+
 if "q_index" not in st.session_state:
     st.session_state.q_index = 0
 
@@ -26,7 +24,7 @@ if "start_time" not in st.session_state:
     st.session_state.start_time = time.time()
 
 if "time_up" not in st.session_state:
-    st.session_state.time_up = False -----------------------------
+    st.session_state.time_up = False
 # Timer configuration
 # -----------------------------
 QUESTION_TIME_LIMIT = 30  QUESTION_TIME_LIMIT = 30  # seconds
