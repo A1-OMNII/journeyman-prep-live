@@ -9,6 +9,7 @@ st.set_page_config(
     page_icon="⚡",
     layout="centered"
 )
+>>>>>>> 6f69167d02fefe9e2283660bfbc6f88597b42967
 
 GUMROAD_PRODUCT_ID = "exsnqw"
 GUMROAD_LINK = "https://a1omnicreation.gumroad.com/l/exsnqw"
@@ -32,10 +33,24 @@ st.markdown(
 
 st.markdown("---")
 
+<<<<<<< HEAD
+# =========================================================
+# QUESTION BANK (EXPAND FREELY)
+# =========================================================
+texas_questions ",
+        "question": "Which agency regulates electrician licensing in Texas?",
+        "options": ["TWC", "TDLR", "OSHA", "ICC"],
+        "a
+        "explanation": "TDLR oversees electrician licensing and exams in Texas.",
+        "reference": "Texas Occupations Code"
+    }
+]
+=======
 # =========================
 # LICENSE ACCESS
 # =========================
 st.subheader("🔐 Exam Access")
+>>>>>>> 7327be7ceadef49368fa71317043d450ff9cde0b
 
 license_key = st.text_input(
     "Enter your license key",
@@ -51,13 +66,38 @@ if st.button("Unlock Access"):
     else:
         st.error("Please enter a valid license key.")
 
+<<<<<<< HEAD
+# =========================================================
+# EXAM MODE TIMER (PAID ONLY)
+# =========================================================
+if ACCESS_TIER != "TRIAL":
+    QUESTION_TIME_LIMIT = 60
+    elapsed = int(time.time() - st.session_state.start_time)
+    remaining = max(0, QUESTION_TIME_LIMIT - elapsed)
+    st.markdown(f"### ⏱️ Time Remaining: **{remaining}s**")
+    if remaining =
+        st.error("⏰ Time expired!")
+        st.session_state.answered = True
+=======
 # =========================
 # TRIAL / LOCKED VIEW
 # =========================
 if not st.session_state.licensed:
     st.warning("🔒 Access Required")
+>>>>>>> 7327be7ceadef49368fa71317043d450ff9cde0b
 
+<<<<<<< HEAD
+# ==========
+# =========================================================
+if st.session_state.q_index >= len(questions):
+    st.success("🎉 Exam Complete")
+    st.write(f"Final Score: {st.session_state.score} / {len(questions)}")
+
+    st.markdown("---")
+    st.markdown("## 🏆 Pass Guarantee")
+=======
     st.markdown("### 🚀 Get Instant Access")
+>>>>>>> 7327be7ceadef49368fa71317043d450ff9cde0b
     st.markdown("""
     • **Free Trial** – Limited sample questions  
     • **Pro Exam Mode** – **$49**  
@@ -83,6 +123,12 @@ st.markdown("### 🧠 Exam Dashboard")
 st.markdown("""
 This system is designed to simulate real Journeyman Electrician exam conditions.
 
+<<<<<<< HEAD
+if st.button("Submit Answer") and not st.session_state.answered:
+    st.session_state.answered = True
+    if choice == q["answer"]:
+        st.success(
+=======
 **Features included:**
 - Timed practice exams  
 - NEC-style questions  
@@ -104,3 +150,5 @@ st.markdown(
     "</div>",
     unsafe_allow_html=True
 )
+
+>>>>>>> 7327be7ceadef49368fa71317043d450ff9cde0b
