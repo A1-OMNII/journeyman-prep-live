@@ -8,9 +8,6 @@ st.set_page_config(
     page_title="Journeyman Electrician Exam Prep",
     page_icon="⚡",
     layout="centered"
-)
->>>>>>> 6f69167d02fefe9e2283660bfbc6f88597b42967
-
 GUMROAD_PRODUCT_ID = "exsnqw"
 GUMROAD_LINK = "https://a1omnicreation.gumroad.com/l/exsnqw"
 
