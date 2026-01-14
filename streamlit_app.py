@@ -52,22 +52,13 @@ questions = [
             "Provide a low-impedance fault path",
             "Bond grounded conductors"
         ],
-        "answer": "Provide a low-impedance fault path",
-        "explanation": "Equipment grounding conductors provide a low-impedance path for fault current to facilitate overcurrent device operation.",
-        "reference": "NEC Article 250"
+        "answer": "Provide a low-impedance path",
+"explanation": "This ensures fault current can safely return to the source and trip the breaker quickly.",
+"reference": "NEC 250.4(A)(5)"
     }
 ]
 
-# Session state
-if "index" not in st.session_state:
-    st.session_state.index = 0
-
-q = questions[st.session_state.index]
-
-st.markdown(f"### Topic: {q['topic']}")
-st.markdown(f"**Question:** {q['question']}")
-
-choice = st.radio("Choose an answer:", q["options"])
+# Session state = st.radio("Choose an answer:", q["options"])
 
 if st.button("Submit Answer"):
     if choice == q["answer"]:
