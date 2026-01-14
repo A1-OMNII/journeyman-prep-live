@@ -1,0 +1,1 @@
+[\n  {\n    "id": 1,\n    "question": "Which agency regulates electrician licensing in Texas?",\n    "options": ["TWC", "TDLR", "OSHA", "ICC"],\n    "answer": "TDLR",\n    "explanation": "TDLR oversees electrician licensing and exams in Texas.",\n    "reference": "Texas Occupations Code"\n  }\n]\n

@@ -1,0 +1,1 @@
+fastapi\nuvicorn[standard]\nstripe\nrequests\nstreamlit\npython-dotenv\nsendgrid\n

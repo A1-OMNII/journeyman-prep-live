@@ -1,0 +1,1 @@
+web: streamlit run streamlit_app.py --server.port $PORT\napi: uvicorn backend.app:app --host 0.0.0.0 --port $PORT_API\n
